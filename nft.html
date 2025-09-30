@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFT Mint</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/discord.css">
+
+<style>
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+    padding: 20px;
+}
+
+/* Wallet button */
+.connect-wallet {
+    border: 2px solid #00ff00;
+    background: transparent;
+    color: #00ff00;
+    font-family: monospace;
+    padding: 8px 16px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #00ff00;
+}
+.connect-wallet:hover {
+    background: rgba(85, 255, 70, 0.747);
+}
+
+/* Grid layout */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+/* NFT Card */
+.nft-card {
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 20px #00ff00;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.65);
+    text-align: center;
+    font-family: monospace;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+/* Upload area */
+.upload-area {
+    flex: 1;
+    border: 2px dashed #00ff00;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    padding: 5px;
+    overflow: hidden; /* جلوگیری از بیرون زدن تصویر */
+}
+.upload-area:hover {
+    background: rgba(0,255,0,0.05);
+}
+.upload-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;        /* تصویر کل کادر رو پر کنه */
+    object-position: center;  /* وسط تصویر رو نگه داره */
+    border-radius: 4px;
+    display: block;
+}
+
+/* Title input */
+.nft-title-input {
+    width: 95%;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    color: #00ff00;
+    text-align: center;
+}
+
+/* Buttons */
+.btn {
+    margin: 5px;
+    padding: 5px 15px;
+    border: 2px solid #00ff00;
+    border-radius: 4px;
+    background: transparent;
+    color: #00ff00;
+    font-family: monospace;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00ff00;
+}
+.btn:hover {
+    background: rgba(0,255,0,0.1);
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>zenchain protocol</h2>
+    <ul>
+        <li><a href="document.html">Document</a></li>
+        <li><a href="discord.html">Discord Guide</a></li>
+        <li><a href="wallet.html">Wallet Faucet</a></li>
+        <li><a href="nft_mint.html" class="active">NFT Mint</a></li>
+        <li><a href="diary.html">Diary</a></li>
+        <li><a href="bridge.html">Bridge</a></li>
+        <li><a href="game.html">Game</a></li>
+    </ul>
+</div>
+
+<div class="content-area">
+    <div id="rain-container"></div>
+
+    <div class="page-container">
+        <button class="connect-wallet">Connect Wallet</button>
+        <div class="card-grid">
+
+            <!-- NFT Cards -->
+            <div class="nft-card">
+                <label class="upload-area">Upload Image
+                    <input type="file" accept="image/*" style="display:none;">
+                </label>
+                <input type="text" class="nft-title-input" placeholder="NFT Title">
+                <button class="btn apply-btn">Apply</button>
+                <button class="btn mint-btn">Mint</button>
+            </div>
+
+            <div class="nft-card">
+                <label class="upload-area">Upload Image
+                    <input type="file" accept="image/*" style="display:none;">
+                </label>
+                <input type="text" class="nft-title-input" placeholder="NFT Title">
+                <button class="btn apply-btn">Apply</button>
+                <button class="btn mint-btn">Mint</button>
+            </div>
+
+            <div class="nft-card">
+                <label class="upload-area">Upload Image
+                    <input type="file" accept="image/*" style="display:none;">
+                </label>
+                <input type="text" class="nft-title-input" placeholder="NFT Title">
+                <button class="btn apply-btn">Apply</button>
+                <button class="btn mint-btn">Mint</button>
+            </div>
+
+            <div class="nft-card">
+                <label class="upload-area">Upload Image
+                    <input type="file" accept="image/*" style="display:none;">
+                </label>
+                <input type="text" class="nft-title-input" placeholder="NFT Title">
+                <button class="btn apply-btn">Apply</button>
+                <button class="btn mint-btn">Mint</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+<script>
+// Offline simulation
+
+// Connect Wallet
+document.querySelector('.connect-wallet').addEventListener('click', () => {
+    alert('✅ Wallet connected (offline simulation)');
+});
+
+// Loop cards
+document.querySelectorAll('.nft-card').forEach((card, idx) => {
+    const uploadArea = card.querySelector('.upload-area');
+    const fileInput = card.querySelector('input[type="file"]');
+    const titleInput = card.querySelector('.nft-title-input');
+
+    // Image preview
+    uploadArea.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                uploadArea.innerHTML = `<img src="${e.target.result}" class="upload-preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Apply button
+    card.querySelector('.apply-btn').addEventListener('click', () => {
+        const title = titleInput.value.trim();
+        if (!title) {
+            alert(`⚠️ Please enter NFT title for Card #${idx+1}`);
+            return;
+        }
+        alert(`✅ Applied changes for Card #${idx+1} (Title: "${title}")`);
+    });
+
+    // Mint button
+    card.querySelector('.mint-btn').addEventListener('click', () => {
+        const title = titleInput.value.trim();
+        const file = fileInput.files[0];
+        if (!file || !title) {
+            alert(`⚠️ Missing image or title for Card #${idx+1}`);
+            return;
+        }
+        alert(`✅ Minted Card #${idx+1} with title "${title}" and image file "${file.name}"`);
+    });
+});
+</script>
+
+</body>
+</html>

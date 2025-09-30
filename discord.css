@@ -1,0 +1,39 @@
+/* مخصوص کادر محتوای صفحه Discord Guide */
+.content-box {
+  position: relative;
+  max-width: 800px;
+  margin: 40px auto;
+  background: rgba(0, 0, 0, 0.6); /* شیشه‌ای مشکی */
+  border: 1px solid #00ff55;
+  border-radius: 10px;
+  padding: 20px;
+  color: #00ff55;
+  font-family: 'Share Tech Mono', monospace;
+  box-shadow: 0 0 10px #00ff55,
+              0 0 20px #00ff55,
+              inset 0 0 10px #00ff55;
+  overflow-y: auto;
+  height: calc(100vh - 100px);
+  z-index: 2;
+}
+
+/* عنوان */
+.content-box h1 {
+  margin-top: 0;
+  font-size: 24px;
+  text-shadow: 0 0 5px #00ff55;
+}
+
+/* متن و لیست‌ها */
+.content-box p {
+  line-height: 1.6;
+}
+
+/* برای موبایل */
+@media (max-width: 768px) {
+  .content-box {
+    margin: 20px;
+    height: calc(100vh - 60px);
+    max-width: 100%;
+  }
+}

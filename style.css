@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #000;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  position: relative;
+  width: 400px;
+  height: 100vh;
+  color: #fff;
+  padding: 10px;
+  background-image: url("../images/1.PNG");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 0;
+}
+
+.sidebar h2,
+.sidebar ul {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 12px;
+  color: #60d629;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 21px;
+}
+
+.sidebar ul li a,
+.sidebar ul li a:link,
+.sidebar ul li a:visited,
+.sidebar ul li a:active {
+  padding: 10px;
+  border-radius: 6px;
+  display: block;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  background: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  background: rgba(0,0,0,0.6);
+  box-shadow: 0 0 8px #60d629,
+              0 0 16px #60d629,
+              0 0 24px #60d629;
+}
+
+.sidebar ul li a.active {
+  color: #60d629 !important;
+  background: rgba(0,0,0,0.4);
+  font-weight: bold;
+  box-shadow: 0 0 8px #60d629,
+              0 0 16px #60d629,
+              0 0 24px #60d629;
+}
+
+/* Content Area */
+.content-area {
+  flex: 1;
+  position: relative;
+  background: #000;
+  overflow: hidden;
+  z-index: 1; /* بالاتر از باران */
+}
+
+/* Rain Effect */
+#rain-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none; /* کلیک عبور کند */
+  z-index: 0; /* زیر محتوا */
+}
+
+.column {
+  position: absolute;
+  top: -200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fall linear infinite;
+}
+
+.letter {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #00ff55;
+  text-shadow: 0 0 5px #00ff55,
+               0 0 10px #00ff55,
+               0 0 20px #00ff55;
+  margin: 2px 0;
+}
+
+@keyframes fall {
+  0% { top: -200px; }
+  100% { top: 100vh; }
+}
+
+/* NFT specific buttons & cards to ensure higher layer */
+.page-container, .nft-card, .connect-wallet {
+  position: relative;
+  z-index: 2; /* بالاتر از باران */
+}

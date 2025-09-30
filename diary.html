@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZenChain Diary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* --- Sidebar --- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 420px; /* عرض بیشتر */
+  height: 100%;
+  background: url("images/1.PNG") no-repeat center center/cover;
+  box-shadow: 0 0 25px #00ff00, inset 0 0 40px #00ff00;
+  z-index: 100;
+}
+
+/* عنوان وسط‌چین و سبز */
+.sidebar h2 {
+  text-align: center;
+  color: #00ff00;
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ff00, 0 0 15px #00ff00, 0 0 30px #00ff00;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 25px;
+}
+.sidebar ul li {
+  margin-bottom: 18px; /* فاصله بیشتر بین دکمه‌ها */
+}
+.sidebar ul li a {
+  display: block;
+  padding: 15px 20px; /* دکمه بزرگ‌تر */
+  font-size: 18px; /* فونت بزرگ‌تر */
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0 0 5px #000000, 0 0 15px #000000, 0 0 30px #00ff00;
+  border-radius: 8px;
+}
+.sidebar ul li a:hover {
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 20px #00ff00, 0 0 35px #00ff00;
+}
+
+/* --- Content Area --- */
+.content-area {
+  margin-left: 420px; /* هماهنگ با عرض سایدبار */
+  padding: 20px;
+  position: relative;
+  background: #000;
+  color: #0f0;
+  min-height: 100vh;
+  text-align: center;
+}
+.content-area h1 {
+  margin-bottom: 20px;
+}
+
+/* --- Form --- */
+form textarea {
+  width: 80%;
+  max-width: 600px;
+  height: 150px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #00ff00;
+  color: #0f0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  padding: 10px;
+  box-shadow: 0 0 10px #00ff00, inset 0 0 10px #00ff00;
+  border-radius: 8px;
+}
+form button {
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: rgba(0,0,0,0.8);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid #00ff00;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  cursor: pointer;
+}
+form button:hover {
+  background: #00ff00;
+  color: #000;
+}
+
+/* --- Rain Effect --- */
+#rain-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.column {
+  position: absolute;
+  top: -200px;
+  animation: fall linear infinite;
+}
+.letter {
+  color: #00ff55;
+  text-shadow: 0 0 5px #00ff55, 0 0 15px #00ff55;
+  font-size: 16px;
+}
+@keyframes fall {
+  to { top: 100vh; }
+}
+
+/* --- Globe --- */
+#globe-container {
+  width: 800px;
+  height: 800px;
+  margin: 1px auto;
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>zenchain protocol</h2>
+  <ul>
+    <li><a href="document.html">Document</a></li>
+    <li><a href="discord.html">Discord Guide</a></li>
+    <li><a href="wallet.html" class="active">Wallet Faucet</a></li>
+    <li><a href="nft.html">NFT Mint</a></li>
+    <li><a href="diary.html">Diary</a></li>
+    <li><a href="bridge.html">Bridge</a></li>
+    <li><a href="game.html">Game</a></li>
+  </ul>
+</div>
+
+<!-- Main Content -->
+<div class="content-area">
+  <h1>Write Memory</h1>
+  <form>
+    <textarea placeholder="Write your memory here..."></textarea><br>
+    <button type="button">Save</button>
+  </form>
+
+  <div id="globe-container"></div>
+</div>
+
+<div id="rain-container"></div>
+
+<!-- Scripts -->
+<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script>
+/* --- 3D Globe --- */
+const container = document.getElementById('globe-container');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(container.clientWidth, container.clientHeight);
+container.appendChild(renderer.domElement);
+
+// Globe Sphere bigger
+const sphereGeom = new THREE.SphereGeometry(7, 64, 64);
+const sphereMat = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+const sphere = new THREE.Mesh(sphereGeom, sphereMat);
+scene.add(sphere);
+
+// Nodes
+for(let i=0; i<50; i++){
+    const nodeGeom = new THREE.SphereGeometry(0.15, 8, 8);
+    const nodeMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const node = new THREE.Mesh(nodeGeom, nodeMat);
+    const phi = Math.random() * Math.PI;
+    const theta = Math.random() * Math.PI * 2;
+    node.position.set(
+        7 * Math.sin(phi) * Math.cos(theta),
+        7 * Math.sin(phi) * Math.sin(theta),
+        7 * Math.cos(phi)
+    );
+    scene.add(node);
+}
+
+camera.position.z = 18;
+
+function animate() {
+    requestAnimationFrame(animate);
+    sphere.rotation.y += 0.002;
+    renderer.render(scene, camera);
+}
+animate();
+
+/* --- Save Text to LocalStorage --- */
+const textarea = document.querySelector('textarea');
+const saveBtn = document.querySelector('button');
+
+textarea.value = localStorage.getItem('diaryText') || '';
+
+saveBtn.addEventListener('click', () => {
+  const text = textarea.value.trim();
+  if(text) {
+    localStorage.setItem('diaryText', text);
+    alert('متن شما ذخیره شد ✔');
+  } else {
+    alert('لطفاً یک متن وارد کنید');
+  }
+});
+</script>
+
+</body>
+</html>
